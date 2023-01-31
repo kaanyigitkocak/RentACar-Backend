@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -14,49 +16,54 @@ public class CarManager:ICarService
         _carDal = carDal;
     }
 
-    public List<Car> GetAll()
+    public IDataResult<List<Car>> GetAll()
     {
-        return _carDal.GetAll();
+        return new SuccessDataResult<List<Car>>(_carDal.GetAll());
     }
 
-    public Car Get(int id)
+    public IDataResult<Car> Get(int id)
     {
-        return _carDal.Get(c => c.Id == id);
+        return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == id));
     }
 
-    public void Add(Car car)
+    public IResult Add(Car car)
     {
         if (IsValid(car.Description,car.DailyPrice))
         {
             _carDal.Add(car);
             Console.WriteLine("Eklendi");
+            return new SuccessResult();
         }
-        
+
+        return new ErrorResult();
+
     }
 
-    public void Update(Car car)
+    public IResult Update(Car car)
     {
         _carDal.Update(car);
+        return new SuccessResult();
     }
 
-    public void Delete(Car car)
+    public IResult Delete(Car car)
     {
         _carDal.Delete(car);
+        return new SuccessResult();
     }
 
-    public List<Car> GetCarsByBrandId(int brandId)
+    public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
     {
-        return _carDal.GetAll(brand => brand.BrandId == brandId);
+        return new SuccessDataResult<List<Car>>(_carDal.GetAll(brand => brand.BrandId == brandId));
     }
 
-    public List<Car> GetCarsByColorId(int colorId)
+    public IDataResult<List<Car>> GetCarsByColorId(int colorId)
     {
-        return _carDal.GetAll(color => color.ColorId == colorId);
+        return new SuccessDataResult<List<Car>>(_carDal.GetAll(color => color.ColorId == colorId));
     }
 
-    public List<CarDetailDto> GetCarDetailDto()
+    public IDataResult<List<CarDetailDto>> GetCarDetailDto()
     {
-        return _carDal.GetCarDetailDto();
+        return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailDto());
     }
 
     private bool IsValid(string? desc, decimal price)

@@ -19,7 +19,7 @@ void CarAddMet(string? desc,decimal price,int brandId,int colorId)
 void GetCarsByColorId()
 {
     CarManager carManager = new CarManager(new EfCarDal());
-    foreach (var car in carManager.GetCarsByColorId(3))
+    foreach (var car in carManager.GetCarsByColorId(3).Data)
     {
         Console.WriteLine(car.Description);
     }
@@ -29,7 +29,7 @@ void GetCarsByBrandId()
 {
     CarManager carManager = new CarManager(new EfCarDal());
 
-    foreach (var car in carManager.GetCarsByBrandId(1))
+    foreach (var car in carManager.GetCarsByBrandId(1).Data)
     {
         Console.WriteLine(car.Description);
     }
@@ -38,7 +38,7 @@ void GetCarsByBrandId()
 void ColorGetAll()
 {
     ColorManager colorManager = new ColorManager(new EfColorDal());
-    foreach (var color in colorManager.GetAll())
+    foreach (var color in colorManager.GetAll().Data)
     {
         Console.WriteLine(color.Name);
     }
@@ -47,7 +47,7 @@ void ColorGetAll()
 void BrandGetAll()
 {
     BrandManager brandManager = new BrandManager(new EfBrandDal());
-    foreach (var brand in brandManager.GetAll())
+    foreach (var brand in brandManager.GetAll().Data)
     {
         Console.WriteLine(brand.Name);
     }
@@ -56,14 +56,14 @@ void BrandGetAll()
 void CarGetAll()
 {
     CarManager carManager = new CarManager(new EfCarDal());
-    foreach (var car in carManager.GetAll())
+    foreach (var car in carManager.GetAll().Data)
     {
         Console.WriteLine(car.Description);
     }
 }
 
 CarManager carManager = new CarManager(new EfCarDal());
-foreach (var car in carManager.GetCarDetailDto())
+foreach (var car in carManager.GetCarDetailDto().Data)
 {
     Console.WriteLine($"Araba Adı : {car.CarName}");
     Console.WriteLine($"Araba MarKası : {car.BrandName}");
