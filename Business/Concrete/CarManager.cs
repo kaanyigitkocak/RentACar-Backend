@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete;
 
@@ -51,6 +52,11 @@ public class CarManager:ICarService
     public List<Car> GetCarsByColorId(int colorId)
     {
         return _carDal.GetAll(color => color.ColorId == colorId);
+    }
+
+    public List<CarDetailDto> GetCarDetailDto()
+    {
+        return _carDal.GetCarDetailDto();
     }
 
     private bool IsValid(string? desc, decimal price)

@@ -1,4 +1,5 @@
 ﻿using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Abstract;
 
@@ -12,4 +13,5 @@ public interface ICarService
 
     List<Car> GetCarsByBrandId(int brandId);
     List<Car> GetCarsByColorId(int colorId);
+    List<CarDetailDto> GetCarDetailDto();
 }

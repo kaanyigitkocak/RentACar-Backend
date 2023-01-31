@@ -5,6 +5,17 @@ using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 
+void CarAddMet(string? desc,decimal price,int brandId,int colorId)
+{
+    Car car1 = new Car()
+    {
+        BrandId = brandId, ColorId = colorId, ModelYear = 2021,
+        DailyPrice = price, Description = desc
+    };
+    CarManager carManager = new CarManager(new EfCarDal());
+    carManager.Add(car1);
+}
+
 void GetCarsByColorId()
 {
     CarManager carManager = new CarManager(new EfCarDal());
@@ -51,13 +62,17 @@ void CarGetAll()
     }
 }
 
-Car car1 = new Car()
-{
-    BrandId = 3,ColorId = 2,ModelYear = 2021,
-    DailyPrice = 45000,Description = "Mercedes Komposer As3"
-};
 CarManager carManager = new CarManager(new EfCarDal());
-carManager.Add(car1);
+foreach (var car in carManager.GetCarDetailDto())
+{
+    Console.WriteLine($"Araba Adı : {car.CarName}");
+    Console.WriteLine($"Araba MarKası : {car.BrandName}");
+    Console.WriteLine($"Araba Renk : {car.ColorName}");
+    Console.WriteLine($"Araba Fiyatı : {car.DailyPrice} TL");
+    Console.WriteLine("****************************************");
+}
+
+//CarAddMet("T",0,1,2);
 
 //GetCarsByColorId();
 
